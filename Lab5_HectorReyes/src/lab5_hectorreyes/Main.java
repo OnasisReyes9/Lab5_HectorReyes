@@ -5,9 +5,16 @@
  */
 package lab5_hectorreyes;
 
+import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JColorChooser;
+import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -36,11 +43,9 @@ public class Main extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jT_nac = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jCB_paises = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         rbtn_hombre = new javax.swing.JRadioButton();
@@ -55,6 +60,7 @@ public class Main extends javax.swing.JFrame {
         jT_vocacion = new javax.swing.JTextField();
         rbtn_yesTitulo = new javax.swing.JRadioButton();
         rbtn_noTitulo = new javax.swing.JRadioButton();
+        btn_aggPersona = new javax.swing.JButton();
         btnG_genero = new javax.swing.ButtonGroup();
         btnG_covid = new javax.swing.ButtonGroup();
         btnG_uni = new javax.swing.ButtonGroup();
@@ -68,6 +74,22 @@ public class Main extends javax.swing.JFrame {
         jT_nombrePais = new javax.swing.JTextField();
         jT_nombreHimno = new javax.swing.JTextField();
         btn_color = new javax.swing.JButton();
+        btn_agregarPais = new javax.swing.JButton();
+        menuAgregarPaisAlTree = new javax.swing.JPopupMenu();
+        aggHomb = new javax.swing.JMenuItem();
+        popMenuAggPersona = new javax.swing.JPopupMenu();
+        aggPersona = new javax.swing.JMenuItem();
+        cmbBoxHombres = new javax.swing.JDialog();
+        panel1 = new java.awt.Panel();
+        jCB_hombres = new javax.swing.JComboBox<>();
+        cmbBoxMujeres = new javax.swing.JDialog();
+        panel2 = new java.awt.Panel();
+        jCB_mujeres = new javax.swing.JComboBox<>();
+        aggQue = new javax.swing.JDialog();
+        panel3 = new java.awt.Panel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList_hombres = new javax.swing.JList();
@@ -76,8 +98,12 @@ public class Main extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jlist_pais = new javax.swing.JList();
+        jlist_paises = new javax.swing.JList();
         jLabel16 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTree_paises = new javax.swing.JTree();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTree_personasEnfermas = new javax.swing.JTree();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMI_addPersona = new javax.swing.JMenuItem();
@@ -86,8 +112,6 @@ public class Main extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setText("Nacionalidad");
-
-        jLabel2.setText("Pais");
 
         jLabel3.setText("Nombre");
 
@@ -121,6 +145,13 @@ public class Main extends javax.swing.JFrame {
         btnG_uni.add(rbtn_noTitulo);
         rbtn_noTitulo.setText("No");
 
+        btn_aggPersona.setText("Agg Persona");
+        btn_aggPersona.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_aggPersonaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -137,30 +168,31 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel8))
                         .addGap(62, 62, 62)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jCB_paises, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jT_nac)
-                                .addComponent(jT_vocacion)
-                                .addComponent(jT_edad)
-                                .addComponent(jT_apellidoPer)
-                                .addComponent(jT_nombrePer)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(rbtn_hombre)
-                                        .addComponent(rbtn_yesCovid))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(rbtn_noCovid)
-                                        .addComponent(rbtn_mujer))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(rbtn_yesTitulo)
                                 .addGap(18, 18, 18)
-                                .addComponent(rbtn_noTitulo)))))
-                .addContainerGap(305, Short.MAX_VALUE))
+                                .addComponent(rbtn_noTitulo))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jT_nac)
+                                    .addComponent(jT_vocacion)
+                                    .addComponent(jT_edad)
+                                    .addComponent(jT_apellidoPer)
+                                    .addComponent(jT_nombrePer)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(rbtn_hombre)
+                                            .addComponent(rbtn_yesCovid))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(rbtn_noCovid)
+                                            .addComponent(rbtn_mujer))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                                .addComponent(btn_aggPersona)))))
+                .addGap(89, 89, 89))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,17 +230,15 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(rbtn_mujer))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                        .addComponent(jCB_paises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(94, 94, 94))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                        .addComponent(btn_aggPersona)
+                        .addGap(92, 92, 92))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(rbtn_yesCovid)
                             .addComponent(rbtn_noCovid))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -239,6 +269,13 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btn_agregarPais.setText("Agregar Pais");
+        btn_agregarPais.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_agregarPaisMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -252,12 +289,17 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabel13))
                 .addGap(88, 88, 88)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jT_nombreHimno)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jDC_fundacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jT_nombrePais, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_color, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(301, 301, 301))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btn_agregarPais)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jT_nombreHimno)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jDC_fundacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jT_nombrePais, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_color, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(301, 301, 301))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,18 +320,143 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(btn_color, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addComponent(btn_agregarPais)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jDialog_aggPaisLayout = new javax.swing.GroupLayout(jDialog_aggPais.getContentPane());
         jDialog_aggPais.getContentPane().setLayout(jDialog_aggPaisLayout);
         jDialog_aggPaisLayout.setHorizontalGroup(
             jDialog_aggPaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jDialog_aggPaisLayout.setVerticalGroup(
             jDialog_aggPaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        aggHomb.setText("Agregar Hombre al Arbol");
+        aggHomb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aggHombActionPerformed(evt);
+            }
+        });
+        menuAgregarPaisAlTree.add(aggHomb);
+
+        aggPersona.setText("Add Person");
+        aggPersona.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                aggPersonaMouseClicked(evt);
+            }
+        });
+        aggPersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aggPersonaActionPerformed(evt);
+            }
+        });
+        popMenuAggPersona.add(aggPersona);
+
+        jCB_hombres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_hombresActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
+        panel1.setLayout(panel1Layout);
+        panel1Layout.setHorizontalGroup(
+            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel1Layout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addComponent(jCB_hombres, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(248, Short.MAX_VALUE))
+        );
+        panel1Layout.setVerticalGroup(
+            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel1Layout.createSequentialGroup()
+                .addGap(188, 188, 188)
+                .addComponent(jCB_hombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(192, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout cmbBoxHombresLayout = new javax.swing.GroupLayout(cmbBoxHombres.getContentPane());
+        cmbBoxHombres.getContentPane().setLayout(cmbBoxHombresLayout);
+        cmbBoxHombresLayout.setHorizontalGroup(
+            cmbBoxHombresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        cmbBoxHombresLayout.setVerticalGroup(
+            cmbBoxHombresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
+        panel2.setLayout(panel2Layout);
+        panel2Layout.setHorizontalGroup(
+            panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 461, Short.MAX_VALUE)
+            .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
+                    .addContainerGap(148, Short.MAX_VALUE)
+                    .addComponent(jCB_mujeres, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(217, Short.MAX_VALUE)))
+        );
+        panel2Layout.setVerticalGroup(
+            panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 361, Short.MAX_VALUE)
+            .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
+                    .addContainerGap(170, Short.MAX_VALUE)
+                    .addComponent(jCB_mujeres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(171, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout cmbBoxMujeresLayout = new javax.swing.GroupLayout(cmbBoxMujeres.getContentPane());
+        cmbBoxMujeres.getContentPane().setLayout(cmbBoxMujeresLayout);
+        cmbBoxMujeresLayout.setHorizontalGroup(
+            cmbBoxMujeresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        cmbBoxMujeresLayout.setVerticalGroup(
+            cmbBoxMujeresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
+
+        javax.swing.GroupLayout panel3Layout = new javax.swing.GroupLayout(panel3);
+        panel3.setLayout(panel3Layout);
+        panel3Layout.setHorizontalGroup(
+            panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel3Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jButton1)
+                .addGap(78, 78, 78)
+                .addComponent(jButton2)
+                .addContainerGap(116, Short.MAX_VALUE))
+        );
+        panel3Layout.setVerticalGroup(
+            panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel3Layout.createSequentialGroup()
+                .addGap(113, 113, 113)
+                .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(164, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout aggQueLayout = new javax.swing.GroupLayout(aggQue.getContentPane());
+        aggQue.getContentPane().setLayout(aggQueLayout);
+        aggQueLayout.setHorizontalGroup(
+            aggQueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        aggQueLayout.setVerticalGroup(
+            aggQueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -326,20 +493,33 @@ public class Main extends javax.swing.JFrame {
 
         jLabel15.setText("Mujeres");
 
-        jlist_pais.setModel(new DefaultListModel());
-        jlist_pais.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlist_paises.setModel(new DefaultListModel());
+        jlist_paises.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jlist_paisMouseClicked(evt);
+                jlist_paisesMouseClicked(evt);
             }
         });
-        jlist_pais.addKeyListener(new java.awt.event.KeyAdapter() {
+        jlist_paises.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jlist_paisKeyPressed(evt);
+                jlist_paisesKeyPressed(evt);
             }
         });
-        jScrollPane3.setViewportView(jlist_pais);
+        jScrollPane3.setViewportView(jlist_paises);
 
         jLabel16.setText("Paises");
+
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Paises");
+        jTree_paises.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jTree_paises.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTree_paisesMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jTree_paises);
+
+        treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Personas Enfermas");
+        jTree_personasEnfermas.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane5.setViewportView(jTree_personasEnfermas);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -348,39 +528,43 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel14)
-                        .addGap(147, 147, 147)
-                        .addComponent(jLabel16))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel15)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addGap(67, 67, 67)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGap(30, 30, 30)
-                                    .addComponent(jLabel15))))
-                        .addGap(49, 49, 49)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(374, Short.MAX_VALUE))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel16))
+                .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel16)
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         jMenu1.setText("File");
@@ -427,7 +611,7 @@ public class Main extends javax.swing.JFrame {
 
     private void jList_hombresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList_hombresMouseClicked
         // TODO add your handling code here:
-        /* if (jList_hombres.getSelectedIndex() >= 0) {
+        /*if (jList_hombres.getSelectedIndex() >= 0) {
             if (evt.isMetaDown()) {
                 popup_modificar.show(evt.getComponent(),
                     evt.getX(), evt.getY());
@@ -477,13 +661,82 @@ public class Main extends javax.swing.JFrame {
         }*/
     }//GEN-LAST:event_jlist_femeninasKeyPressed
 
-    private void jlist_paisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlist_paisMouseClicked
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jlist_paisMouseClicked
+        jDialog_aggPais.setModal(true);
+        jDialog_aggPais.pack();
+        jDialog_aggPais.setLocationRelativeTo(this);
+        jDialog_aggPais.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jlist_paisKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jlist_paisKeyPressed
+    private void btn_aggPersonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_aggPersonaMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jlist_paisKeyPressed
+        if (rbtn_hombre.isSelected()) {
+            DefaultListModel modelo
+                    = (DefaultListModel) jList_hombres.getModel();
+            String titulo = "";
+            if (rbtn_noTitulo.isSelected()) {
+                titulo = "No";
+            } else {
+                titulo = "Si";
+            }
+            String covid = "";
+            if (rbtn_noCovid.isSelected()) {
+                covid = "No";
+            } else {
+                covid = "Sí";
+            }
+            Persona persona = new Persona(jT_nac.getText(),
+                    jT_nombrePer.getText(),
+                    jT_apellidoPer.getText(),
+                    Integer.parseInt(jT_edad.getText()),
+                    "Masculino",
+                    jT_vocacion.getText(),
+                    titulo,
+                    covid);
+            modelo.addElement(persona);
+            jT_nac.setText("");
+            jT_nombrePer.setText("");
+            jT_apellidoPer.setText("");
+            //jCB_paises.setSelectedIndex(0);
+            jT_edad.setText("");
+            jT_vocacion.setText("");
+            DefaultComboBoxModel m = (DefaultComboBoxModel) jCB_hombres.getModel();
+            m.addElement(persona);
+        } else {
+            DefaultListModel modelo
+                    = (DefaultListModel) jlist_femeninas.getModel();
+            String titulo = "";
+            if (rbtn_noTitulo.isSelected()) {
+                titulo = "No";
+            } else {
+                titulo = "Si";
+            }
+            String covid = "";
+            if (rbtn_noCovid.isSelected()) {
+                covid = "No";
+            } else {
+                covid = "Sí";
+            }
+            Persona persona = new Persona(jT_nac.getText(),
+                    jT_nombrePer.getText(),
+                    jT_apellidoPer.getText(),
+                    Integer.parseInt(jT_edad.getText()),
+                    "Femenino",
+                    jT_vocacion.getText(),
+                    titulo,
+                    covid);
+            jT_nac.setText("");
+            modelo.addElement(persona);
+            jT_nombrePer.setText("");
+            jT_apellidoPer.setText("");
+            //jCB_paises.setSelectedIndex(0);
+            jT_edad.setText("");
+            jT_vocacion.setText("");
+            DefaultComboBoxModel m = (DefaultComboBoxModel) jCB_mujeres.getModel();
+            m.addElement(persona);
+        }
+    }//GEN-LAST:event_btn_aggPersonaMouseClicked
 
     private void jMI_addPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMI_addPersonaActionPerformed
         // TODO add your handling code here:
@@ -493,13 +746,82 @@ public class Main extends javax.swing.JFrame {
         jDialog_aggPersona.setVisible(true);
     }//GEN-LAST:event_jMI_addPersonaActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void btn_agregarPaisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_agregarPaisMouseClicked
         // TODO add your handling code here:
-        jDialog_aggPais.setModal(true);
-        jDialog_aggPais.pack();
-        jDialog_aggPais.setLocationRelativeTo(this);
-        jDialog_aggPais.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+        DefaultListModel model = (DefaultListModel) jlist_paises.getModel();
+        Pais pais = new Pais(jT_nombrePais.getText(),
+                jDC_fundacion.getDate(),
+                jT_nombreHimno.getText(),
+                btn_color.getBackground());
+        paises.add(pais);
+        model.addElement(pais);
+
+        DefaultComboBoxModel<Pais> list = new DefaultComboBoxModel();
+        list.addElement(pais);
+
+        jT_nombrePais.setText("");
+        jDC_fundacion = new JDateChooser();
+        jT_nombreHimno.setText("");
+    }//GEN-LAST:event_btn_agregarPaisMouseClicked
+
+    private void jlist_paisesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jlist_paisesKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlist_paisesKeyPressed
+
+    private void jlist_paisesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlist_paisesMouseClicked
+        // TODO add your handling code here:
+        try {
+            if (jlist_paises.getSelectedIndex() >= 0) {
+                if (evt.isMetaDown()) {
+                    menuAgregarPaisAlTree.show(evt.getComponent(), evt.getX(), evt.getY());
+                }
+                paisSelect = paises.get(jlist_paises.getSelectedIndex());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Ocurrio un error y no se guardaron los datos");
+        }
+
+    }//GEN-LAST:event_jlist_paisesMouseClicked
+
+    private void aggHombActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggHombActionPerformed
+        // TODO add your handling code here:
+        DefaultTreeModel tModel = (DefaultTreeModel) jTree_paises.getModel();
+
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) tModel.getRoot();
+        DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(paisSelect);
+        raiz.add(nodo);
+        tModel.reload();
+    }//GEN-LAST:event_aggHombActionPerformed
+
+    private void aggPersonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aggPersonaMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_aggPersonaMouseClicked
+
+    private void jTree_paisesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree_paisesMouseClicked
+        // TODO add your handling code here:
+        int row = jTree_paises.getClosestRowForLocation(evt.getX(), evt.getY());
+        jTree_paises.setSelectionRow(row);
+        Object object = jTree_paises.getSelectionPath().getLastPathComponent();
+        nodo_seleccionado = (DefaultMutableTreeNode) object;
+        if (nodo_seleccionado.getUserObject() instanceof Pais) {
+            popMenuAggPersona.show(evt.getComponent(), evt.getX(), evt.getY());
+            paisSelect = (Pais) nodo_seleccionado.getUserObject();
+        }
+
+    }//GEN-LAST:event_jTree_paisesMouseClicked
+
+    private void jCB_hombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_hombresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCB_hombresActionPerformed
+
+    private void aggPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggPersonaActionPerformed
+        // TODO add your handling code here:
+
+        
+        
+    }//GEN-LAST:event_aggPersonaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -537,11 +859,22 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aggHomb;
+    private javax.swing.JMenuItem aggPersona;
+    private javax.swing.JDialog aggQue;
     private javax.swing.ButtonGroup btnG_covid;
     private javax.swing.ButtonGroup btnG_genero;
     private javax.swing.ButtonGroup btnG_uni;
+    private javax.swing.JButton btn_aggPersona;
+    private javax.swing.JButton btn_agregarPais;
     private javax.swing.JButton btn_color;
-    private javax.swing.JComboBox<String> jCB_paises;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JDialog cmbBoxHombres;
+    private javax.swing.JDialog cmbBoxMujeres;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jCB_hombres;
+    private javax.swing.JComboBox<String> jCB_mujeres;
     private com.toedter.calendar.JDateChooser jDC_fundacion;
     private javax.swing.JDialog jDialog_aggPais;
     private javax.swing.JDialog jDialog_aggPersona;
@@ -553,7 +886,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -572,6 +904,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextField jT_apellidoPer;
     private javax.swing.JTextField jT_edad;
     private javax.swing.JTextField jT_nac;
@@ -579,8 +913,15 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField jT_nombrePais;
     private javax.swing.JTextField jT_nombrePer;
     private javax.swing.JTextField jT_vocacion;
+    private javax.swing.JTree jTree_paises;
+    private javax.swing.JTree jTree_personasEnfermas;
     private javax.swing.JList jlist_femeninas;
-    private javax.swing.JList jlist_pais;
+    private javax.swing.JList jlist_paises;
+    private javax.swing.JPopupMenu menuAgregarPaisAlTree;
+    private java.awt.Panel panel1;
+    private java.awt.Panel panel2;
+    private java.awt.Panel panel3;
+    private javax.swing.JPopupMenu popMenuAggPersona;
     private javax.swing.JRadioButton rbtn_hombre;
     private javax.swing.JRadioButton rbtn_mujer;
     private javax.swing.JRadioButton rbtn_noCovid;
@@ -588,4 +929,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtn_yesCovid;
     private javax.swing.JRadioButton rbtn_yesTitulo;
     // End of variables declaration//GEN-END:variables
+    DefaultMutableTreeNode nodo_seleccionado;
+    DefaultMutableTreeNode nodoPaisSelected;
+    Pais paisSelect;
+    ArrayList<Pais> paises = new ArrayList();
 }

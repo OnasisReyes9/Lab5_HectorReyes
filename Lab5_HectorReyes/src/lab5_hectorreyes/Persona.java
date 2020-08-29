@@ -12,18 +12,16 @@ package lab5_hectorreyes;
 public class Persona {
 
     private String nacionalidad, nombre, apellido;
-    private Pais pais;
     private int edad;
     private String genero, vocacion, tituloUni, tieneCovid;
 
     public Persona() {
     }
 
-    public Persona(String nacionalidad, String nombre, String apellido, Pais pais, int edad, String genero, String vocacion, String tituloUni, String tieneCovid) {
+    public Persona(String nacionalidad, String nombre, String apellido, int edad, String genero, String vocacion, String tituloUni, String tieneCovid) {
         this.nacionalidad = nacionalidad;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.pais = pais;
         this.edad = edad;
         this.genero = genero;
         this.vocacion = vocacion;
@@ -53,14 +51,6 @@ public class Persona {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
-    }
-
-    public Pais getPais() {
-        return pais;
-    }
-
-    public void setPais(Pais pais) {
-        this.pais = pais;
     }
 
     public int getEdad() {
@@ -105,7 +95,7 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "Persona{" + "nacionalidad=" + nacionalidad + ", nombre=" + nombre + ", apellido=" + apellido + ", pais=" + pais + ", edad=" + edad + ", genero=" + genero + ", vocacion=" + vocacion + ", tituloUni=" + tituloUni + ", tieneCovid=" + tieneCovid + '}';
+        return "Persona{" + "nacionalidad=" + nacionalidad + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", genero=" + genero + ", vocacion=" + vocacion + ", tituloUni=" + tituloUni + ", tieneCovid=" + tieneCovid + '}';
     }
 
 }

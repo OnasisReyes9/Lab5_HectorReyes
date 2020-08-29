@@ -22,6 +22,13 @@ public class Pais {
     public Pais() {
     }
 
+    public Pais(String nombrePais, Date fechaFun, String nombreHimno, Color color) {
+        this.nombrePais = nombrePais;
+        this.fechaFun = fechaFun;
+        this.nombreHimno = nombreHimno;
+        this.color = color;
+    }
+
     public String getNombrePais() {
         return nombrePais;
     }
@@ -56,7 +63,7 @@ public class Pais {
 
     @Override
     public String toString() {
-        return "Pais{" + "nombrePais=" + nombrePais + ", fechaFun=" + fechaFun + ", nombreHimno=" + nombreHimno + ", color=" + color + '}';
+        return nombrePais;
     }
 
 }
